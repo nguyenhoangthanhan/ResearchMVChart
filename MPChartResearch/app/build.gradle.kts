@@ -48,6 +48,7 @@ dependencies {
     testImplementation(libs.constraintlayout)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso)
-//    implementation(libs.mpAndroidChart)
-    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    implementation(libs.mpAndroidChart)
+
+    implementation(libs.androidx.fragment.ktx)
 }

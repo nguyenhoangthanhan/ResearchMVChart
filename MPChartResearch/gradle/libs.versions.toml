@@ -1,5 +1,6 @@
 [versions]
 datastoreCore = "1.0.0"
+fragmentKtx = "1.6.2"
 kotlinSerialization = "1.9.21"
 kotlinxCoroutines = "1.7.3"
 kotlinxSerializationJson = "1.6.0"
@@ -52,6 +53,7 @@ work-runtime-ktx = "2.9.0"
 play-services-location = "21.0.1"
 
 [libraries]
+androidx-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentKtx" }
 datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastoreCore" }
 androidx-datastore-core = { module = "androidx.datastore:datastore-core", version.ref = "datastoreCore" }
 androidx-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "ktx" }
