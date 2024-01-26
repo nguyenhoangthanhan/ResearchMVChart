@@ -6,13 +6,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.LegendEntry
+import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.IAxisValueFormatter
+import com.github.mikephil.charting.formatter.IValueFormatter
+import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
+import com.github.mikephil.charting.utils.ViewPortHandler
 import com.nguyenhoangthanhan.mpchartresearch.databinding.FragmentLineChart1Binding
 
 class LineChart1Fragment : Fragment() {
@@ -28,7 +34,7 @@ class LineChart1Fragment : Fragment() {
     private lateinit var legendEntries: MutableList<LegendEntry>
 
     private lateinit var legendsColors:Array<Int>
-    private val legendsColors2 = arrayOf(Color.BLUE, Color.RED, Color.GREEN, Color.YELLOW)
+    private val legendsColors2 = intArrayOf(R.color.color1, R.color.color2, R.color.color3, R.color.color4)
     private val legendNames = arrayOf("Cow", "Dog", "Cat", "Rat")
 
     override fun onCreateView(
@@ -81,6 +87,25 @@ class LineChart1Fragment : Fragment() {
         binding.lineChart.setBorderColor(Color.RED)
         binding.lineChart.setBorderWidth(5f)
 
+        lineDataSet1.lineWidth = 4f
+        lineDataSet1.color = Color.MAGENTA
+        lineDataSet1.setDrawCircles(true)
+        lineDataSet1.setDrawCircleHole(true)
+        lineDataSet1.setCircleColor(Color.GREEN)
+        lineDataSet1.circleHoleColor = Color.RED
+        lineDataSet1.circleRadius = 20f
+        lineDataSet1.circleHoleRadius = 15f
+        lineDataSet1.valueTextSize = 20f
+        lineDataSet1.valueTextColor = 0xFF14B6E3.toInt()
+//        lineDataSet1.enableDashedLine(30f,5f,0f)
+        lineDataSet1.setColors(legendsColors2, requireActivity())
+
+        val xAxis = binding.lineChart.xAxis
+        val xAxisLeft = binding.lineChart.axisLeft
+        val xAxisRight = binding.lineChart.axisRight
+        xAxis.valueFormatter = MyAxisValueFormatter()
+        xAxisLeft.valueFormatter = MyAxisValueFormatter()
+
         val description = Description()
         description.apply {
             text = "Temperature"
@@ -90,16 +115,19 @@ class LineChart1Fragment : Fragment() {
 
         binding.lineChart.description = description
 
-        val legend = binding.lineChart.legend
-        legend.isEnabled = true
-        legend.textColor = Color.GREEN
-        legend.textSize = 22f
-        legend.form = Legend.LegendForm.CIRCLE
-        legend.formSize = 22f
-        legend.xEntrySpace = 80f
-        legend.formToTextSpace = 10f
+//        val legend = binding.lineChart.legend
+//        legend.isEnabled = true
+//        legend.textColor = Color.GREEN
+//        legend.textSize = 22f
+//        legend.form = Legend.LegendForm.CIRCLE
+//        legend.formSize = 22f
+//        legend.xEntrySpace = 80f
+//        legend.formToTextSpace = 10f
 
-        legend.setCustom(legendEntries)
+//        legend.setCustom(legendEntries)
+
+//        data.setValueFormatter(MyValueFormatter())
+        lineDataSet1.valueFormatter = MyValueFormatter()
     }
 
     private fun initEvents() {
@@ -129,5 +157,18 @@ class LineChart1Fragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    inner class MyValueFormatter : ValueFormatter() {
+        override fun getFormattedValue(value: Float): String {
+            return ("$value $")
+        }
+    }
+
+    inner class MyAxisValueFormatter : ValueFormatter() {
+        override fun getAxisLabel(value: Float, axis: AxisBase?): String {
+            axis?.setLabelCount(3, true)
+            return "$value $"
+        }
     }
 }
