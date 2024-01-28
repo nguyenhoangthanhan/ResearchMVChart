@@ -48,6 +48,26 @@ class HomeFragment : Fragment() {
                 addToBackStack(LineChart1Fragment::class.java.canonicalName)
             }
         }
+        binding.btnOpenBarChart.setOnClickListener {
+            parentFragmentManager.commit {
+                val barChartFragment: Fragment = BarChartFragment()
+                val arguments = Bundle()
+                arguments.putBoolean("bar_chart", true)
+                barChartFragment.arguments = arguments
+                replace(R.id.container, barChartFragment, BarChartFragment::class.java.canonicalName)
+                addToBackStack(BarChartFragment::class.java.canonicalName)
+            }
+        }
+        binding.btnOpenBarChart2.setOnClickListener {
+            parentFragmentManager.commit {
+                val barChart2Fragment: Fragment = BarChart2Fragment()
+                val arguments = Bundle()
+                arguments.putBoolean("bar_chart2", true)
+                barChart2Fragment.arguments = arguments
+                replace(R.id.container, barChart2Fragment, BarChart2Fragment::class.java.canonicalName)
+                addToBackStack(BarChart2Fragment::class.java.canonicalName)
+            }
+        }
     }
 
     override fun onDestroyView() {
