@@ -68,6 +68,26 @@ class HomeFragment : Fragment() {
                 addToBackStack(BarChart2Fragment::class.java.canonicalName)
             }
         }
+        binding.btnOpenStackedBarChart2.setOnClickListener {
+            parentFragmentManager.commit {
+                val stackedBarChartFragment: Fragment = StackedBarChartFragment()
+                val arguments = Bundle()
+                arguments.putBoolean("stacked_bar_chart2", true)
+                stackedBarChartFragment.arguments = arguments
+                replace(R.id.container, stackedBarChartFragment, StackedBarChartFragment::class.java.canonicalName)
+                addToBackStack(StackedBarChartFragment::class.java.canonicalName)
+            }
+        }
+        binding.btnOpenPieChart.setOnClickListener {
+            parentFragmentManager.commit {
+                val pieChartFragment: Fragment = PieChartFragment()
+                val arguments = Bundle()
+                arguments.putBoolean("pie_chart2", true)
+                pieChartFragment.arguments = arguments
+                replace(R.id.container, pieChartFragment, PieChartFragment::class.java.canonicalName)
+                addToBackStack(PieChartFragment::class.java.canonicalName)
+            }
+        }
     }
 
     override fun onDestroyView() {
